@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-job-scheduler-dr80-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr80-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns80pd81bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc81/dr80/prod/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-job-scheduler-prod-config
+    targetRevision: HEAD
+  project: platformfoundations
+  syncPolicy:
+    automated:
+      selfHeal: true 
+      prune: true

@@ -1,0 +1,17 @@
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: sf-docker-golden-cicd-regcred
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/dockerconfigjson
+  vaultMountPoint: dc25-qacand-kubernetes
+  vaultRole: dc25-qacand-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: .dockerconfigjson
+      key: dc25-qacand-argocd_repo_secrets/data/docker.credentials
+      property: .dockerconfigjson
+      isBinary: true
+      

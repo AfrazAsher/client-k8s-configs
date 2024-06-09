@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mobile-store-qa-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/mobile-mobile-prod-config.git
+    path: mobile-store-prod-gardener
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nsqa01mmobile
+  project: mobile

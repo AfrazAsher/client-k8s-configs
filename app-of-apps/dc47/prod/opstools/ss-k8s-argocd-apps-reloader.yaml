@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-k8s-argocd-apps-reloader-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: kustomize/overlays/dc47/prod
+    repoURL: 'https://github.tools.sap/sf-k8s/k8s-argocd-app-reload.git'
+    targetRevision: HEAD
+  destination:
+    server: 'https://api.047pcapp01.hxmprod.shoot.live.k8s-hana.ondemand.com'
+    namespace: k8s-argocd-apps-reloader
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - ServerSideApply=true  
+  project: opstools

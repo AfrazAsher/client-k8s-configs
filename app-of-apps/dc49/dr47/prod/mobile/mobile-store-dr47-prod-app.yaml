@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mobile-store-dr47-prod-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/mobile-mobile-prod-config.git
+    path: mobile-store-prod
+    targetRevision: HEAD
+    helm:
+      valueFiles: ['values_gardener.yaml'] 
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ns47pd49mmobile
+  project: mobile

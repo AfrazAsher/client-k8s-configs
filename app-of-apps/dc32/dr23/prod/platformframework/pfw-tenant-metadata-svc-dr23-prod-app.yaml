@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfw-tenant-metadata-svc-dr23-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr23-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns23pd32bpfw
+    server: https://kubernetes.default.svc
+  source:
+    path: dc32/dr23/prod/
+    repoURL: https://github.tools.sap/sf-k8s/pfw-tenant-metadata-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformframework

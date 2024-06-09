@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfw-email-loganalyzer-perfverihana-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-perfverihana: ONBOARD
+spec:
+  destination:
+    namespace: nspv25bpfw
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc25/perfverihana/
+    repoURL: https://github.tools.sap/sf-k8s/pfw-email-loganalyzer-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformframework

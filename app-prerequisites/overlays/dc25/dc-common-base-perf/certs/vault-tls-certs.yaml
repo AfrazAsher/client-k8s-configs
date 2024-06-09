@@ -1,0 +1,85 @@
+---
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.perfverihana.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-perfrelease-kubernetes
+  vaultRole: dc25-perfrelease-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+      property: perfverihana.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+      property: perfverihana.key
+      isBinary: true
+---
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.perfsupt.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-perfrelease-kubernetes
+  vaultRole: dc25-perfrelease-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+      property: perfsupt.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+      property: perfsupt.key
+      isBinary: true
+---
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.perfrelease.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-perfrelease-kubernetes
+  vaultRole: dc25-perfrelease-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+      property: perfrelease.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+      property: perfrelease.key
+      isBinary: true
+--- 
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.perfshare.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-perfrelease-kubernetes
+  vaultRole: dc25-perfrelease-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+      property: perfshare.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+      property: perfshare.key
+      isBinary: true     
+---

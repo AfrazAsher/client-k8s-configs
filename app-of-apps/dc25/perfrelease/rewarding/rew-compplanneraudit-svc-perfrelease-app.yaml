@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rew-compplanneraudit-svc-perfrelease-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-perfrelease: ONBOARD
+spec:
+  destination:
+    namespace: nspr25brew
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc25/perfrelease/
+    repoURL: https://github.tools.sap/sf-k8s/rew-compplanneraudit-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: rewarding

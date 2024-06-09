@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rec-dps-dr70-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr70-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns70pd71brec
+    server: https://kubernetes.default.svc
+  source:
+    path: dc71/dr70/prod/
+    repoURL: https://github.tools.sap/sf-k8s/rec-dps-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: recruiting

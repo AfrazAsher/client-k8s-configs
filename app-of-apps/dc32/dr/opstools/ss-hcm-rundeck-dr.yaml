@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-hcm-rundeck-dr
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: kubernetes-deploy/helm
+    repoURL: https://github.tools.sap/e2e-deployment/hcm-rundeck
+    targetRevision: rundeck3-latest-gardener
+    helm:
+      valueFiles:
+        - values.yaml
+        - values-prd-dc32.yaml
+  syncPolicy:
+    automated:
+      prune: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: deliverytools
+  project: opstools

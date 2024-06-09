@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-uxr-card-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: LIVE
+spec:
+  destination:
+    namespace: nssc23bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc23/preview
+    repoURL: https://github.tools.sap/sf-k8s/pfs-uxr-card-prod-config.git
+    targetRevision: HEAD
+  project: platformfoundations
+  syncPolicy:
+    automated:
+      selfHeal: true  

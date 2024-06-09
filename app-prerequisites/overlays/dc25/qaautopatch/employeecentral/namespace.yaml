@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nsap25bec
+  labels:
+    regcred-injector.app.succesfactors.com/managed: "true"
+    multizone-injector.app.succesfactors.com/managed: "true"

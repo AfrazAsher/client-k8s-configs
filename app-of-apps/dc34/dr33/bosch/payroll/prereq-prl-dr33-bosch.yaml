@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prereq-prl-dr33-bosch
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: ns33pd34bspprl
+    server: https://kubernetes.default.svc
+  source:
+    path: app-prerequisites/overlays/dc34/dr33/bosch/payroll
+    repoURL: https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: payroll

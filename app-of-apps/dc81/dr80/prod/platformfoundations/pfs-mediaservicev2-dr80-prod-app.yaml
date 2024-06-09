@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-mediaservicev2-dr80-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr41-prod: ONBOARD
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/pfs-mediaservicev2-prod-config
+    path: dc81/dr80/prod/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ns80pd81bpfs
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

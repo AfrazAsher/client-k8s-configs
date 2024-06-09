@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-cosmos-sc
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ''
+    namespace: deliverytools
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm-chart
+    repoURL: 'https://github.tools.sap/sdo-toolsandutilities/cosmos-ops.git'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values-dc70-prod.yaml
+      parameters:
+        - name: global.tlssecretname
+          value: operate-tls-secret
+        - name: global.tlscreation
+          value: 'true'
+  project: opstools
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

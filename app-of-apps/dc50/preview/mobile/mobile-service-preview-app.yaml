@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mobile-service-preview-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/mobile-mobile-prod-config.git
+    path: mobile-app/dc50/preview/
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nssc50mmobile
+  ignoreDifferences:
+  - group: "apps"
+    kind: "Deployment"
+    jsonPointers:
+    - /spec/replicas
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true    
+  project: mobile

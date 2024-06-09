@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: exp-ecosystem-eml-dr70-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr70-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns70pd71bexp
+    server: https://kubernetes.default.svc
+  source:
+    path: dc71/dr70/prod/
+    repoURL: https://github.tools.sap/sf-k8s/exp-ecosystem-eml-prod-config
+    targetRevision: HEAD
+  project: experience
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

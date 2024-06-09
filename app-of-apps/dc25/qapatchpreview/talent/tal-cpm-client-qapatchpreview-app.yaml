@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tal-cpm-client-qapatchpreview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qapatchpreview: ONBOARD
+spec:
+  destination:
+    namespace: nspp25btal
+    server: https://kubernetes.default.svc
+  source:
+    path: dc25/qapatchpreview/
+    repoURL: https://github.tools.sap/sf-k8s/tal-cpm-client-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: talent

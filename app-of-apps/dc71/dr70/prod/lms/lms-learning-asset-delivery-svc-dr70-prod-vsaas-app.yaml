@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lms-learning-asset-delivery-svc-dr70-prod-vsaas-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr70-prod: ONBOARD
+spec:
+  destination:
+    namespace: nsv70pd71llms
+    server: https://kubernetes.default.svc
+  source:
+    path: dc71/dr70/prod-vsaas/
+    repoURL: https://github.tools.sap/sf-k8s/lms-learning-asset-delivery-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: lms

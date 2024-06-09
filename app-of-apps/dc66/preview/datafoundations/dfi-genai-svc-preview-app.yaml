@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dfi-genai-svc-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  destination:
+    namespace: nssc66bdfi
+    server: https://kubernetes.default.svc
+  source:
+    path: dc66/preview/
+    repoURL: https://github.tools.sap/sf-k8s/dfi-genai-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: datafoundations

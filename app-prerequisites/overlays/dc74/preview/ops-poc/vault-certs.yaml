@@ -1,0 +1,18 @@
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: vault-certs
+spec:
+  backendType: vault
+  vaultMountPoint: dc2-prod-kubernetes
+  vaultRole: dc2-prod-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+  - key: dc2-prod-argocd_repo_secrets/data/tls.certificates
+    name: preview.crt
+    property: preview.crt
+    isBinary: true
+  - key: dc2-prod-argocd_repo_secrets/data/tls.certificates
+    name: preview.key
+    property: preview.key
+    isBinary: true

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-prereq-next-gen-qacockpit-qacand
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: k8s-next-gen-qacockpit
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: app-prerequisites/base/opstools/k8s-next-gen-qacockpit
+    repoURL: 'https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: opstools

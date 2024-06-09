@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: eas-whole-self-ml-svc-bosch-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-bosch: ONBOARD
+spec:
+  destination:
+    namespace: nsbs33beas
+    server: https://api.033pcapp01.hxmeuprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc33/bosch/
+    repoURL: https://github.tools.sap/sf-k8s/eas-whole-self-ml-svc-prod-config
+    targetRevision: HEAD
+  project: ecosystemapplications
+  syncPolicy:
+    automated:
+      selfHeal: true 
+      prune: true

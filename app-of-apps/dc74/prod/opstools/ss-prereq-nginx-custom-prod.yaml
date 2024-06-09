@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-prereq-nginx-custom-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ''
+    namespace: nginx-default
+    server: 'https://api.074pcapp01.hxmeuprod.shoot.live.k8s-hana.ondemand.com'
+  source:
+    path: app-prerequisites/base/opstools/nginx-custom
+    repoURL: 'https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: opstools

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: custom-hpa-perf
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qacand: ONBOARD
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/custom-hpa-prometheus
+    path: dc25/perfrelease/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+    namespace: custom-hpa
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - ServerSideApply=true  
+  project: opstools

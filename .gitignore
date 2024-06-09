@@ -1,0 +1,30 @@
+*/build
+/.gradle
+/.settings
+bin/*
+/.classpath
+/.project
+
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#target files
+/target/*
+/*/target/*
+
+#binary output files
+/bin/*
+/*/bin/*
+
+#build files
+/build/*
+/*/build/*
+
+*/out/
+/out/*
+
+# Ignore intelij files
+/.idea/*
+/*.iml
+*.iml

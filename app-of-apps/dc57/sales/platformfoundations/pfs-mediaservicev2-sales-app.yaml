@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-mediaservicev2-sales-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-sales: ONBOARD
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/pfs-mediaservicev2-prod-config
+    path: dc57/sales/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://api.057psapp01.hxmeuprod.shoot.live.k8s-hana.ondemand.com
+    namespace: nsps57bpfs
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

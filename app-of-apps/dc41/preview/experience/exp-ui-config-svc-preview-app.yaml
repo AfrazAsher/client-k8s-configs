@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: exp-ui-config-svc-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  destination:
+    namespace: nssc41bexp
+    server: https://kubernetes.default.svc
+  source:
+    path: dc41/preview/
+    repoURL: https://github.tools.sap/sf-k8s/exp-ui-config-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: experience

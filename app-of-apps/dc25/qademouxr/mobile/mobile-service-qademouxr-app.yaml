@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mobile-service-qademouxr
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/mobile-mobile-prod-config.git
+    path: mobile-app/dc25/qademouxr
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nsmu25mmobile
+  ignoreDifferences:
+  - group: "apps"
+    kind: "Deployment"
+    jsonPointers:
+    - /spec/replicas
+  project: mobile

@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudhealth
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qacand: ONBOARD
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/CloudHealth
+    path: dc1/qa/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cloudhealth
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - ServerSideApply=true  
+  project: opstools

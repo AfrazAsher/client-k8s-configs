@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-k8s-argocd-apps-reloader-dr
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: kustomize/overlays/dc75/dr74/prod
+    repoURL: 'https://github.tools.sap/sf-k8s/k8s-argocd-app-reload.git'
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: k8s-argocd-apps-reloader
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - ServerSideApply=true  
+  project: opstools

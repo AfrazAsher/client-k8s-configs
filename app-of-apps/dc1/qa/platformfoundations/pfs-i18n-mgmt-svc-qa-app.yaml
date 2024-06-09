@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-i18n-mgmt-svc-qa-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qa: ONBOARD
+spec:
+  destination:
+    namespace: nsqa01bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc1/qa/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-i18n-mgmt-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

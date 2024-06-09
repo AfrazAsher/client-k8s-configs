@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfw-integration-gateway-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/pfw-integration-gateway-prod-config
+    path: dc60/preview/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nssc60bpfw
+  project: platformframework
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: false

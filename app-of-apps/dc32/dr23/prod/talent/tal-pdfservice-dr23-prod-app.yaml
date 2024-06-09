@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tal-pdfservice-dr23-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr23-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns23pd32btal
+    server: https://kubernetes.default.svc
+  source:
+    path: dc32/dr23/prod/
+    repoURL: https://github.tools.sap/sf-k8s/tal-pdfservice-prod-config
+    targetRevision: HEAD
+  project: talent
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

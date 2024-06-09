@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-cockpit-cacheprovisioning-dr74-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr74-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns74pd75bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc75/dr74/prod/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-cockpit-cacheprovisioning-prod-config
+    targetRevision: HEAD
+  project: platformfoundations
+  syncPolicy:
+    automated:
+      selfHeal: true 
+      prune: true

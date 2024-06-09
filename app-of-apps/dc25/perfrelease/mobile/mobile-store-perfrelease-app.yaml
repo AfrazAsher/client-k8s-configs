@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mobile-store-perfrelease
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/mobile-mobile-prod-config.git
+    path: mobile-store-perf
+    targetRevision: HEAD
+    valueFiles: value.yaml
+  destination:
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+    namespace: nspr25mmobile
+  project: mobile

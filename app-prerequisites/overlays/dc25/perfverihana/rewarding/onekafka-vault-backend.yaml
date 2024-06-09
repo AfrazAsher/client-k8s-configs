@@ -1,0 +1,20 @@
+apiVersion: external-secrets.io/v1beta1
+kind: SecretStore
+metadata:
+  name: onekafka-vault-backend
+spec:
+  provider:
+    vault:
+      server: https://vault.dc025.sf.priv
+      path: dc25-perfrelease-onekafka_vault
+      auth:
+        jwt:
+          path: dc25-perfrelease-kubernetes
+          role: dc25-perfrelease-argocd_repo_read_only_principal
+          kubernetesServiceAccountToken:
+            serviceAccountRef:
+              name: vault-auth-external-secrets
+      caProvider:
+        type: Secret
+        name: vault-tls
+        key: vault_ca.crt

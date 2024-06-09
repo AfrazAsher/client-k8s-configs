@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prereq-ayt-dr33-bosch
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: ns33pd34bsbayt
+    server: https://kubernetes.default.svc
+  source:
+    path: app-prerequisites/overlays/dc34/dr33/bosch/analytics
+    repoURL: https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: analytics

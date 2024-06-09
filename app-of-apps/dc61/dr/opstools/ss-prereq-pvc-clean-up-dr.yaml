@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-prereq-pvc-clean-up-dr
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ''
+    namespace: pvc-clean-up
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: app-prerequisites/base/opstools/pvc-clean-up
+    repoURL: 'https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: opstools

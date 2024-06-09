@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-job-scheduler-dr66-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr66-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns66pd67bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc67/dr66/prod/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-job-scheduler-prod-config
+    targetRevision: HEAD
+  project: platformfoundations
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

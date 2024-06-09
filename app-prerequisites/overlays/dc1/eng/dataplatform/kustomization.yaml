@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+#  - ../../../../base/dataplatform/ # skipping this for now, in ENG we don't need a base, that will come later
+#  - ../../../../base/common-base # skipping this for now, in ENG we don't need golden/hcm regcred secrets
+  - ../../dc-common-base
+  - ../secrets # custom secrets that are for dc1-eng only for sf-docker-staging/-tools/-temp, docker-hub, crimson-prod
+  - ../clusterroles # custom cluster roles for Strimzi CRDs
+resources:
+  - namespace.yaml
+  - serviceaccount.yaml
+  - rolebinding-strimzi-admin.yaml
+  - rolebinding-dynatrace-oneagent-metadata-viewer.yaml
+namespace: nsen01dpfs

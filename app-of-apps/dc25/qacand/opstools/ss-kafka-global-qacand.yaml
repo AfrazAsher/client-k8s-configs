@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-kafka-global-qacand
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: helm
+    repoURL: https://github.tools.sap/e2e-deployment/kafka-deployment
+    targetRevision: re-deploy-gardener-latest
+    helm:
+      valueFiles:
+        - values-prd-dc25.yaml
+      parameters:
+        - name: global.zookeeper.resources.memory
+          value: 1Gi
+        - name: global.zookeeper.db.storageClassName
+          value: rwm-retain
+        - name: db.storageClassName
+          value: rwm-retain
+#  syncPolicy:
+#    automated:
+#      prune: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: deliverytools
+  project: opstools

@@ -1,0 +1,20 @@
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.sales.dc40k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc40-sales-kubernetes
+  vaultRole: dc40-sales-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+  - key: dc40-sales-argocd_repo_secrets/data/tls.certificates
+    name: tls.crt
+    property: sales.crt
+    isBinary: true
+  - key: dc40-sales-argocd_repo_secrets/data/tls.certificates
+    name: tls.key
+    property: sales.key
+    isBinary: true

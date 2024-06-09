@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfw-integration-gateway-qaautocand-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qaautocand: ONBOARD
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/pfw-integration-gateway-prod-config
+    path: dc25/qaautocand/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nsac25bpfw
+  syncPolicy:
+    automated:
+      selfHeal: true
+  project: platformframework

@@ -1,0 +1,202 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: sapsf-co-bizx-secrets
+spec:
+  externalSecretName: sapsf-co-bizx-secrets
+  externalSecretSpec:
+    data:
+    - secretKey: "pwd"
+      remoteRef:
+        key: dc25-qacand-argocd_repo_secrets/data/bizx.password
+        property: "pwd"
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    target:
+      name: sapsf-co-bizx-secrets
+  namespaceSelector:
+    matchLabels: 
+      app.kubernetes.io/component: qacand
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.qapatchpreview.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.qapatchpreview.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qapatchpreview.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qapatchpreview.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.qapatchpreview.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: qapatchpreview
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.qacand.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.qacand.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qacand.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qacand.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.qacand.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: qacand
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.qapatch.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.qapatch.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qapatch.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qapatch.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.qapatch.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: qapatch
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.qaautocand.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.qaautocand.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qaautocand.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qaautocand.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.qaautocand.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: qaautocand
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.qademouxr.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.qademouxr.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qademouxr.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qademouxr.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.qademouxr.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: qademouxr
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.qacandies.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.qacandies.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qacandies.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+         property: qacandies.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.qacandies.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: qacandies
+---

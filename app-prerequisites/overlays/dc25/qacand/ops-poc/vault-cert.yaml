@@ -1,0 +1,20 @@
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: vault-certs
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-qacand-kubernetes
+  vaultRole: dc25-qacand-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+  - key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+    name: tls.crt
+    property: qacand.crt
+    isBinary: true
+  - key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+    name: tls.key
+    property: qacand.key
+    isBinary: true

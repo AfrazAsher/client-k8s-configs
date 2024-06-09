@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-cockpit-homepage-perfverihana-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-perfverihana: ONBOARD
+spec:
+  destination:
+    namespace: nspv25bpfs
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc25/perfverihana/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-cockpit-homepage-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

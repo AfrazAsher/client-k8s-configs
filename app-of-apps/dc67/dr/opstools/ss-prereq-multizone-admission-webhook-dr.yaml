@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-prereq-multizone-admission-webhook-dr
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: multizone-admission-webhook
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: app-prerequisites/base/opstools/multizone-admission-webhook
+    repoURL: 'https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: opstools

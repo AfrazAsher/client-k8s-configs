@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: k8s-argocd-apps-reloader
+subjects:
+  - kind: ServiceAccount
+    name: k8s-argocd-apps-reloader
+roleRef:
+  kind: ClusterRole
+  name: k8s-argocd-apps-reloader
+  apiGroup: rbac.authorization.k8s.io

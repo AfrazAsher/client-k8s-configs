@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ec-integration-svc-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  destination:
+    namespace: nssc66bec
+    server: https://kubernetes.default.svc
+  source:
+    path: dc66/preview/
+    repoURL: https://github.tools.sap/sf-k8s/ec-integration-svc-prod-config
+    targetRevision: HEAD
+  project: employeecentral
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

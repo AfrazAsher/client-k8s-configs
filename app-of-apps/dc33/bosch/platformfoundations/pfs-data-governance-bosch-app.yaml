@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-data-governance-bosch-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-bosch: ONBOARD
+spec:
+  destination:
+    namespace: nsbs33bpfs
+    server: https://api.033pcapp01.hxmeuprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc33/bosch/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-data-governance-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

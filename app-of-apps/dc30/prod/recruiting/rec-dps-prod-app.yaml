@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rec-dps-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-prod: ONBOARD
+spec:
+  destination:
+    namespace: nspc30brec
+    server: https://api.030pcapp01.hxmprod.shoot.k8s.cn40.platform.sapcloud.cn
+  source:
+    path: dc30/prod/
+    repoURL: https://github.tools.sap/sf-k8s/rec-dps-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: recruiting

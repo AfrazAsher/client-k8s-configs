@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prereq-ayt-dr47-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: ns47pd49bayt
+    server: https://kubernetes.default.svc
+  source:
+    path: app-prerequisites/overlays/dc49/dr47/prod/analytics
+    repoURL: https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: analytics

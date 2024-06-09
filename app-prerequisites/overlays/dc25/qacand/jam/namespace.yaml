@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nsmc25japp
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nsmc25jops

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jam-deps-qapatch-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: jam
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/jam-helm-prod-config
+    targetRevision: HEAD
+    path: dc25/qapatch/jam-deps
+    helm:
+      valueFiles:
+        - ../../../instances/stage2-gardener.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nsmp25japp
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false

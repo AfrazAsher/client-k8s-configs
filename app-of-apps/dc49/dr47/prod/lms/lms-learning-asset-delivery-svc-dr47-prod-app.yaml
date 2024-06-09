@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lms-learning-asset-delivery-svc-dr47-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr47-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns47pd49llms
+    server: https://kubernetes.default.svc
+  source:
+    path: dc49/dr47/prod/
+    repoURL: https://github.tools.sap/sf-k8s/lms-learning-asset-delivery-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: lms

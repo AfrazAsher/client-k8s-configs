@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jam-ops-qacand-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: jam
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/jam-helm-prod-config
+    targetRevision: HEAD
+    path: dc25/qacand/jam-ops-gardener
+    helm:
+      valueFiles:
+        - ../../../instances/qacand-ops-gardener.yaml
+        - ../../../instances/integration5-gardener.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nsmc25jops
+  #syncPolicy:
+    #automated:
+      #prune: true
+      #selfHeal: true

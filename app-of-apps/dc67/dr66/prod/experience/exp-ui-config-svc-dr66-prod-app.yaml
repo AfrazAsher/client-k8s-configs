@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: exp-ui-config-svc-dr66-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr66-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns66pd67bexp
+    server: https://kubernetes.default.svc
+  source:
+    path: dc67/dr66/prod/
+    repoURL: https://github.tools.sap/sf-k8s/exp-ui-config-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: experience

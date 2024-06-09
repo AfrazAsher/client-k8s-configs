@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-cockpit-homepage-qapatchpreview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qapatchpreview: ONBOARD
+spec:
+  destination:
+    namespace: nspp25bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc25/qapatchpreview/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-cockpit-homepage-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

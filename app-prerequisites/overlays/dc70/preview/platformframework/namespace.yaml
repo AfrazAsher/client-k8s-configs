@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nssc70bpfw
+  labels:
+    regcred-injector.app.succesfactors.com/managed: "true"
+    multizone-injector.app.succesfactors.com/managed: "true"
+    external-secrets.app.succesfactors.com/env: "preview"

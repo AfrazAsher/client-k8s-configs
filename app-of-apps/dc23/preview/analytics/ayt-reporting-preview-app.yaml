@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ayt-reporting-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: LIVE
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/ayt-reporting-prod-config.git
+    path: dc23/preview
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nssc23bayt
+  project: analytics
+  syncPolicy:
+    automated:
+      selfHeal: true   

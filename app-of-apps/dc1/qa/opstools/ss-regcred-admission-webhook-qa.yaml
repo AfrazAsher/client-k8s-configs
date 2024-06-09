@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-regcred-admission-webhook-qa
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: mutation/kustomize/base
+    repoURL: 'https://github.tools.sap/sf-k8s/k8s-regcred-admission-webhook'
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: regcred-admission-webhook
+  syncPolicy:
+    automated:
+      prune: true
+  project: opstools

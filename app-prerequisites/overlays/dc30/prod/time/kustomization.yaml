@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+  - ../../../../base/time/
+  - ../../../../base/common-base
+  - ../../dc-common-base
+resources:
+  - namespace.yaml
+namespace: nspc30btim

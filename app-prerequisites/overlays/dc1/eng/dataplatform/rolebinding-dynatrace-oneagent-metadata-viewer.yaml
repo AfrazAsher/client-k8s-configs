@@ -1,0 +1,14 @@
+# dynatrace-oneagent-metadata-viewer.yaml
+# https://www.dynatrace.com/support/help/how-to-use-dynatrace/infrastructure-monitoring/container-platform-monitoring/kubernetes-monitoring/leverage-tags-defined-in-kubernetes-deployments
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: dynatrace-oneagent-metadata-viewer-binding
+subjects:
+  - kind: Group
+    name: system:serviceaccounts:nsen01dpfs
+    apiGroup: ""
+roleRef:
+  kind: Role
+  name: dynatrace-oneagent-metadata-viewer-role
+  apiGroup: ""

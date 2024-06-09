@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: exp-worktech-teams-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  destination:
+    namespace: nssc57bexp
+    server: https://kubernetes.default.svc
+  source:
+    path: dc57/preview/
+    repoURL: https://github.tools.sap/sf-k8s/exp-worktech-teams-prod-config
+    targetRevision: HEAD
+  project: experience
+  syncPolicy:
+    automated:
+      selfHeal: true    

@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tim-timeevent-processing-perfsac-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-perfsac: ONBOARD
+spec:
+  destination:
+    namespace: nspf25btim
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc25/perfsac/
+    repoURL: https://github.tools.sap/sf-k8s/tim-timeevent-processing-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: time

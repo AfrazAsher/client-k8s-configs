@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-consul-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/k8s-consul
+    path: dc30/030pcapp01/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+      parameters:
+        - name: syncCatalog.aclSyncToken.secretName
+          value: consultoken
+        - name: syncCatalog.aclSyncToken.secretKey
+          value: CONSUL_HTTP_TOKEN
+  destination:
+    server: https://api.030pcapp01.hxmprod.shoot.k8s.cn40.platform.sapcloud.cn
+    namespace: deliverytools
+  syncPolicy:
+    automated:
+      prune: true
+  project: opstools

@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: exp-worktech-teams-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-prod: ONBOARD
+spec:
+  destination:
+    namespace: nspc50bexp
+    server: https://api.050pcapp01.hxmprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc50/prod/
+    repoURL: https://github.tools.sap/sf-k8s/exp-worktech-teams-prod-config
+    targetRevision: HEAD
+  project: experience
+  syncPolicy:
+    automated:
+      selfHeal: true

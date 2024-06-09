@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mobile-mobileapi-perfshare-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-perfshare: ONBOARD
+spec:
+  destination:
+    namespace: nspa25mmobile
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc25/perfshare/
+    repoURL: https://github.tools.sap/sf-k8s/mobile-mobileapi-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: mobile

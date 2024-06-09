@@ -1,0 +1,23 @@
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: argo-repo-creds
+spec:
+  backendType: vault
+  vaultMountPoint: dc25-qacand-kubernetes
+  vaultRole: dc25-qacand-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+  - key: dc25-qacand-argocd_repo_secrets/data/git.credentials
+    name: git.tools.token
+    property: git.tools.token
+  - key: dc25-qacand-argocd_repo_secrets/data/git.credentials
+    name: git.tools.user
+    property: git.tools.user
+  - key: dc25-qacand-argocd_repo_secrets/data/git.credentials
+    name: git.wdf.token
+    property: git.wdf.token
+  - key: dc25-qacand-argocd_repo_secrets/data/git.credentials
+    name: git.wdf.user
+    property: git.wdf.user
+  

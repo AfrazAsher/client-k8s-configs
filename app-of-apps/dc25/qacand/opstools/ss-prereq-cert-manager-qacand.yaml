@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-prereq-cert-manager-qacand
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: cert-manager
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: app-prerequisites/base/opstools/cert-manager
+    repoURL: 'https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: opstools

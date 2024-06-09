@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-blob-storage-download-svc-sales-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-sales: ONBOARD
+spec:
+  destination:
+    namespace: nsps57bpfs
+    server: https://api.057psapp01.hxmeuprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc57/sales/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-blob-storage-download-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

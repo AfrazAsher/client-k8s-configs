@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prereq-jam-common-qaautocand
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: nsac25japp
+    server: https://kubernetes.default.svc
+  source:
+    path: jam-kustomize/integration/hcm/2/common
+    repoURL: https://github.tools.sap/sf-k8s/jam-kustomize-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+  project: jam

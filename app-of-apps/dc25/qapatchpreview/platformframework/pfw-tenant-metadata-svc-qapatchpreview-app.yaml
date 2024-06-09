@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfw-tenant-metadata-svc-qapatchpreview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qapatchpreview: ONBOARD
+spec:
+  destination:
+    namespace: nspp25bpfw
+    server: https://kubernetes.default.svc
+  source:
+    path: dc25/qapatchpreview/
+    repoURL: https://github.tools.sap/sf-k8s/pfw-tenant-metadata-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformframework

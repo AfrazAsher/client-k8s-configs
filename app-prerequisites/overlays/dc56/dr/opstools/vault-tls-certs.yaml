@@ -1,0 +1,31 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.dr.dc56k8s-apps.sf.priv
+spec:
+  externalSecretName:  wildcard.dr.dc56k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc56-dr-argocd_repo_secrets/data/tls.certificates
+         property: dr.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc56-dr-argocd_repo_secrets/data/tls.certificates
+         property: dr.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.dr.dc56k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: dr
+---

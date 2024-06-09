@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tal-cpm-client-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  destination:
+    namespace: nssc50btal
+    server: https://kubernetes.default.svc
+  source:
+    path: dc50/preview/
+    repoURL: https://github.tools.sap/sf-k8s/tal-cpm-client-prod-config
+    targetRevision: HEAD
+  project: talent
+  syncPolicy:
+    automated:
+      selfHeal: true 

@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-jenkins-dr-new
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: .
+    repoURL: https://github.tools.sap/sf-k8s/k8s-jenkins
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - dc34/dr/values.yaml
+      parameters:
+        - name: controller.ingress.hostName
+          value: jenkins.034pdapp01.hcm.net.sap
+        - name: controller.ingress.tls[0].hosts[0]
+          value: jenkins.034pdapp01.hcm.net.sap
+        - name: controller.ingress.tls[0].secretName
+          value: wildcard.034pdapp01.hcm.net.sap
+        - name: persistence.storageClass
+          value: rwm-retain
+        - name: controller.adminPassword
+          value: F474eqEP1U4cdfoo8
+        - name: controller.adminUser
+          value: admin
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: jenkins
+  syncPolicy:
+    automated:
+      prune: true    
+  project: opstools

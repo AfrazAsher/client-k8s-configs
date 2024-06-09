@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: (REPO-PREFIX)-(ENV)-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: '(REPO-NAME)'
+    path: (DC)/(ENV)
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: (NAMESPACE)
+  syncPolicy:
+   automated:
+     selfHeal: true
+     prune: true
+  project: (CAPABILITY)

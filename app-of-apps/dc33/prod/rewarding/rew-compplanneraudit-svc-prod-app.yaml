@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rew-compplanneraudit-svc-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-prod: ONBOARD
+spec:
+  destination:
+    namespace: nspc33brew
+    server: https://api.033pcapp01.hxmeuprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc33/prod/
+    repoURL: https://github.tools.sap/sf-k8s/rew-compplanneraudit-svc-prod-config
+    targetRevision: HEAD
+  project: rewarding
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

@@ -1,0 +1,32 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.preview.dc66k8s-apps.sf.priv
+spec:
+  externalSecretName:  wildcard.preview.dc66k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc66-stage-argocd_repo_secrets/data/tls.certificates
+         property: preview.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc66-stage-argocd_repo_secrets/data/tls.certificates
+         property: preview.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.preview.dc66k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+    #  app.kubernetes.io/component: tls-certifacte-preview
+      external-secrets.app.succesfactors.com/env: preview
+---

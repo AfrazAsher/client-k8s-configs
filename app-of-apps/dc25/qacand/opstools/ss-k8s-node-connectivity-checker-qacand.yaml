@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-k8s-node-connectivity-checker-qacand
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: kustomize/overlays/dc25
+    repoURL: 'https://github.tools.sap/sf-k8s/k8s-node-connectivity-checker.git'
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: k8s-node-connectivity-checker
+  syncPolicy:
+    automated:
+      prune: true
+  project: opstools

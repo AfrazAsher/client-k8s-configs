@@ -1,0 +1,40 @@
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: argo-repo-creds
+spec:
+  backendType: vault
+  vaultMountPoint: dc60-prod-kubernetes
+  vaultRole: dc60-prod-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+  - key: dc60-prod-argocd_repo_secrets/data/git.credentials
+    name: git.tools.token
+    property: git.tools.token
+  - key: dc60-prod-argocd_repo_secrets/data/git.credentials
+    name: tools.user
+    property: git.tools.user
+  - key: dc60-prod-argocd_repo_secrets/data/git.credentials
+    name: git.wdf.token
+    property: git.wdf.token
+  - key: dc60-prod-argocd_repo_secrets/data/git.credentials
+    name: git.wdf.user
+    property: git.wdf.user
+  - key: dc60-prod-argocd_repo_secrets/data/artifactory.credentials
+    name: helm.artifactory.token
+    property: helm.artifactory.token
+  - key: dc60-prod-argocd_repo_secrets/data/artifactory.credentials
+    name: helm.artifactory.user
+    property: helm.artifactory.user
+  - key: dc60-prod-argocd_repo_secrets/data/artifactory.credentials
+    name: helm.golden.token
+    property: helm.golden.token
+  - key: dc60-prod-argocd_repo_secrets/data/artifactory.credentials
+    name: helm.golden.user
+    property: helm.golden.user
+  - key: dc60-prod-argocd_repo_secrets/data/artifactory.credentials
+    name: helm.staging.token
+    property: helm.staging.token
+  - key: dc60-prod-argocd_repo_secrets/data/artifactory.credentials
+    name: helm.staging.user
+    property: helm.staging.user

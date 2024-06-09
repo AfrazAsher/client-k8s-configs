@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tim-timeevent-processing-qapatchpreview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qapatchpreview: ONBOARD
+spec:
+  destination:
+    namespace: nspp25btim
+    server: https://kubernetes.default.svc
+  source:
+    path: dc25/qapatchpreview/
+    repoURL: https://github.tools.sap/sf-k8s/tim-timeevent-processing-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: time

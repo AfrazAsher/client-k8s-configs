@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-i18n-mgmt-svc-dr41-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr41-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns41pd43bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc43/dr41/prod/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-i18n-mgmt-svc-prod-config
+    targetRevision: HEAD
+  project: platformfoundations
+  syncPolicy:
+    automated:
+      selfHeal: true 
+      prune: true

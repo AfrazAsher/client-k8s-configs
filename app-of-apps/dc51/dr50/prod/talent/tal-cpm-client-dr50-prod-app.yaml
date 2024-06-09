@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tal-cpm-client-dr50-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr50-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns50pd51btal
+    server: https://kubernetes.default.svc
+  source:
+    path: dc51/dr50/prod/
+    repoURL: https://github.tools.sap/sf-k8s/tal-cpm-client-prod-config
+    targetRevision: HEAD
+  project: talent
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

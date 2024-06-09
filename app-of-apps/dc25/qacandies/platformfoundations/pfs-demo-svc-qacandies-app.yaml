@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-demo-svc-qacandies-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qacandies: ONBOARD
+spec:
+  destination:
+    namespace: nsmi25bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc25/qacandies/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-demo-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

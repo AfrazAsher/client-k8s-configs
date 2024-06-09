@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rec-application-search-api-perfverihana-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-perfverihana: ONBOARD
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/rec-application-search-api-prod-config
+    path: dc25/perfverihana
+    targetRevision: HEAD
+  destination:
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+    namespace: nspv25brec
+  syncPolicy:
+    automated:
+      prune: true
+  project: recruiting

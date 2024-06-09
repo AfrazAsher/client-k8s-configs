@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-prereq-opstools-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: deliverytools
+    server: https://api.030pcapp01.hxmprod.shoot.k8s.cn40.platform.sapcloud.cn
+  source:
+    path: app-prerequisites/overlays/dc30/prod/opstools
+    repoURL: https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: opstools

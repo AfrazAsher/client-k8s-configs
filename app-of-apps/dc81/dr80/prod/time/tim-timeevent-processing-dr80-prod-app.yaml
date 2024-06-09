@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tim-timeevent-processing-dr80-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr80-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns80pd81btim
+    server: https://kubernetes.default.svc
+  source:
+    path: dc81/dr80/prod/
+    repoURL: https://github.tools.sap/sf-k8s/tim-timeevent-processing-prod-config
+    targetRevision: HEAD
+  project: time
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

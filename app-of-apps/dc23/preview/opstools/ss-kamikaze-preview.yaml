@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-kamikaze-preview
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: kubernetes-deploy/helm
+    repoURL: https://github.tools.sap/e2e-deployment/kamikaze
+    targetRevision: master-kamikaze
+    helm:
+      valueFiles:
+        - values-prd-dc23.yaml
+      parameters:
+        - name: db.storage
+          value: 10Gi
+        - name: image.db
+          value: postgres:11.2-alpine
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: deliverytools
+  syncPolicy:
+    automated:
+      prune: true
+  project: opstools

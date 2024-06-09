@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ayt-reporting-dr60-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr60-prod: LIVE
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/ayt-reporting-prod-config.git
+    path: dc61/dr60/prod/
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ns60pd61bayt
+  project: analytics
+  syncPolicy:
+    automated:
+      selfHeal: true 
+      prune: true

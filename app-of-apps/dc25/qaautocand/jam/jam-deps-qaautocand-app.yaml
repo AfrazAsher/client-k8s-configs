@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jam-deps-qaautocand-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: jam
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/jam-helm-prod-config
+    targetRevision: HEAD
+    path: dc25/qaautocand/jam-deps
+    helm:
+      valueFiles:
+        - ../../../instances/integration2-gardener.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nsac25japp
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false

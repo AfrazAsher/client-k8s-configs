@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: exp-digital-assistant-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  destination:
+    namespace: nssc55bexp
+    server: https://kubernetes.default.svc
+  source:
+    path: dc55/preview/
+    repoURL: https://github.tools.sap/sf-k8s/exp-digital-assistant-prod-config
+    targetRevision: HEAD
+  project: experience
+  syncPolicy:
+    automated:
+      selfHeal: true 

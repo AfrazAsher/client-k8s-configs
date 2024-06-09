@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-cockpit-olio-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-prod: ONBOARD
+spec:
+  destination:
+    namespace: nspc68bpfs
+    server: https://api.068pcapp01.hxmprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc68/prod/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-cockpit-olio-prod-config
+    targetRevision: HEAD
+  project: platformfoundations
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

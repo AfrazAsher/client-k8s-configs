@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfw-tenant-lifecycle-qa-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qa: ONBOARD
+spec:
+  destination:
+    namespace: nsqa01bpfw
+    server: https://kubernetes.default.svc
+  source:
+    path: dc1/qa/
+    repoURL: https://github.tools.sap/sf-k8s/pfw-tenant-lifecycle-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformframework

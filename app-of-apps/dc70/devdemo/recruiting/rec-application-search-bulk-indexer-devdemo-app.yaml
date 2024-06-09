@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rec-application-search-bulk-indexer-devdemo-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-devshow: ONBOARD
+spec:
+  destination:
+    namespace: nsdd70brec
+    server: https://api.070psapp01.hxmprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: dc70/devdemo/
+    repoURL: https://github.tools.sap/sf-k8s/rec-application-search-bulk-indexer-prod-config
+    targetRevision: HEAD
+  project: recruiting

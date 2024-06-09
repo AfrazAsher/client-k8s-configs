@@ -1,0 +1,106 @@
+---
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.qacand.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-qacand-kubernetes
+  vaultRole: dc25-qacand-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qacand.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qacand.key
+      isBinary: true
+---
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.qapatch.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-qacand-kubernetes
+  vaultRole: dc25-qacand-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qapatch.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qapatch.key
+      isBinary: true
+---
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.qaautocand.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-qacand-kubernetes
+  vaultRole: dc25-qacand-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qaautocand.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qaautocand.key
+      isBinary: true
+---
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.qademouxr.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-qacand-kubernetes
+  vaultRole: dc25-qacand-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qademouxr.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qademouxr.key
+      isBinary: true
+---
+apiVersion: kubernetes-client.io/v1
+kind: ExternalSecret
+metadata:
+  name: wildcard.qacandies.dc25k8s-apps.sf.priv
+spec:
+  backendType: vault
+  template:
+    type: kubernetes.io/tls
+  vaultMountPoint: dc25-qacand-kubernetes
+  vaultRole: dc25-qacand-argocd_repo_read_only_principal
+  kvVersion: 2
+  data:
+    - name: tls.crt
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qacandies.crt
+      isBinary: true
+    - name: tls.key
+      key: dc25-qacand-argocd_repo_secrets/data/tls.certificates
+      property: qacandies.key
+      isBinary: true
+---

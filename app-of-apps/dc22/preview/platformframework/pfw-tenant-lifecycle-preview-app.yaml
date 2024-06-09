@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfw-tenant-lifecycle-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  destination:
+    namespace: nssc22bpfw
+    server: https://kubernetes.default.svc
+  source:
+    path: dc22/preview/
+    repoURL: https://github.tools.sap/sf-k8s/pfw-tenant-lifecycle-prod-config
+    targetRevision: HEAD
+  project: platformframework
+  syncPolicy:
+    automated:
+      selfHeal: true      

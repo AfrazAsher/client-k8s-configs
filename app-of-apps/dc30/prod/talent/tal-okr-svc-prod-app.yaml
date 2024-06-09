@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tal-okr-svc-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-prod: ONBOARD
+spec:
+  destination:
+    namespace: nspc30btal
+    server: https://api.030pcapp01.hxmprod.shoot.k8s.cn40.platform.sapcloud.cn
+  source:
+    path: dc30/prod/
+    repoURL: https://github.tools.sap/sf-k8s/tal-okr-svc-prod-config
+    targetRevision: HEAD
+  project: talent
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

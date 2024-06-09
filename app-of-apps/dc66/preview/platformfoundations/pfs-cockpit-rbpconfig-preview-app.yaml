@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-cockpit-rbpconfig-preview-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-preview: ONBOARD
+spec:
+  destination:
+    namespace: nssc66bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc66/preview/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-cockpit-rbpconfig-prod-config
+    targetRevision: HEAD
+  project: platformfoundations
+  syncPolicy:
+    automated:
+      selfHeal: true 

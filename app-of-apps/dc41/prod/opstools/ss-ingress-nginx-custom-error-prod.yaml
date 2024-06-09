@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-ingress-nginx-custom-error-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ''
+    namespace: argocd
+    server: https://api.041pcapp01.hxmprod.shoot.live.k8s-hana.ondemand.com
+  source:
+    path: nginx_custom_error/base/
+    repoURL: https://github.tools.sap/sf-k8s/ingress-nginx-custom
+    targetRevision: HEAD
+  project: opstools

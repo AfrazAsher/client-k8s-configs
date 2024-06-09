@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mock-exp-digital-assistant-perfrelease-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/exp-digital-assistant-dev-config.git
+    path: mock
+    targetRevision: HEAD
+  destination:
+    server: https://api.025qaperf01.hxmnonprod.shoot.live.k8s-hana.ondemand.com
+    namespace: nspr25bexp
+  syncPolicy:
+    automated:
+      prune: true    
+  project: experience

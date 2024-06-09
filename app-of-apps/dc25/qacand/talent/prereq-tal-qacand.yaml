@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prereq-tal-qacand
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: nsmc25btal
+    server: https://kubernetes.default.svc
+  source:
+    path: app-prerequisites/overlays/dc25/qacand/talent
+    repoURL: https://github.tools.sap/sf-k8s/gardener-k8s-argocd-apps.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+  project: talent

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-vaultservice-svc-qacand-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qacand: ONBOARD
+spec:
+  destination:
+    namespace: nsmc25bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc25/qacand/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-vaultservice-svc-prod-config
+    targetRevision: HEAD
+  project: platformfoundations
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

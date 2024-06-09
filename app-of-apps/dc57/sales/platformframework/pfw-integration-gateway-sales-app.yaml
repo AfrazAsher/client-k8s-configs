@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfw-integration-gateway-sales-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-sales: ONBOARD
+spec:
+  source:
+    repoURL: https://github.tools.sap/sf-k8s/pfw-integration-gateway-prod-config
+    path: dc57/sales/
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://api.057psapp01.hxmeuprod.shoot.live.k8s-hana.ondemand.com
+    namespace: nsps57bpfw
+  project: platformframework
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: false

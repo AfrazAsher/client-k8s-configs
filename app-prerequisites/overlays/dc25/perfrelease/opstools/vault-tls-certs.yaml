@@ -1,0 +1,151 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.perfverihana.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.perfverihana.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfverihana.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfverihana.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.perfverihana.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: perfverihana
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.perfrelease.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.perfrelease.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfrelease.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfrelease.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.perfrelease.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: perfrelease
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.perfsupt.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.perfsupt.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfsupt.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfsupt.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.perfsupt.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: perfsupt
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.perfshare.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.perfshare.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfshare.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfshare.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.perfshare.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: perfshare
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ClusterExternalSecret
+metadata:
+  name: wildcard.perfayt.dc25k8s-apps.sf.priv
+spec:
+  externalSecretName: wildcard.perfayt.dc25k8s-apps.sf.priv
+  externalSecretSpec:
+    data:
+     - secretKey: tls.crt
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfayt.crt
+     - secretKey: tls.key
+       remoteRef:
+         key: dc25-perfrelease-argocd_repo_secrets/data/tls.certificates
+         property: perfayt.key
+    secretStoreRef:
+      kind: ClusterSecretStore
+      name: vault-backend-cluster
+    refreshInterval: "0"
+    target:
+      creationPolicy: Orphan
+      name: wildcard.perfayt.dc25k8s-apps.sf.priv
+     # this is how the Kind=Secret will look like
+      template:
+        type: kubernetes.io/tls
+  namespaceSelector:
+    matchLabels:
+      external-secrets.app.succesfactors.com/env: perfayt
+---

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-vault-prod
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: dc22/prod/
+    repoURL: https://github.tools.sap/sf-k8s/k8s-vault
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: false
+  destination:
+    server: https://api.022pcapp01.hxmprod.shoot.live.k8s-hana.ondemand.com
+    namespace: deliverytools
+  project: opstools

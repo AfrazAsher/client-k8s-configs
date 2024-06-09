@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ayt-sac-ois-lms-qapatchpreview-vsaas-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qapatchpreview-vsaas: ONBOARD
+spec:
+  destination:
+    namespace: nsppv25bayt
+    server: null
+  source:
+    path: dc25/qapatchpreview-vsaas/
+    repoURL: https://github.tools.sap/sf-k8s/ayt-sac-ois-lms-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: analytics

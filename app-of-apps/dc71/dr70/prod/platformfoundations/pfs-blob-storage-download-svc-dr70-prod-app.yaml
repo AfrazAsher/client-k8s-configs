@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-blob-storage-download-svc-dr70-prod-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-dr70-prod: ONBOARD
+spec:
+  destination:
+    namespace: ns70pd71bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc71/dr70/prod/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-blob-storage-download-svc-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

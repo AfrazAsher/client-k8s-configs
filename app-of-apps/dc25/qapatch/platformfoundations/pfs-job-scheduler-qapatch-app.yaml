@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pfs-job-scheduler-qapatch-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    app.successfactors.com/live-status-qapatch: ONBOARD
+spec:
+  destination:
+    namespace: nsmp25bpfs
+    server: https://kubernetes.default.svc
+  source:
+    path: dc25/qapatch/
+    repoURL: https://github.tools.sap/sf-k8s/pfs-job-scheduler-prod-config
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+  project: platformfoundations

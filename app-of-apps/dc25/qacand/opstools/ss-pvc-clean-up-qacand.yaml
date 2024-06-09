@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ss-pvc-clean-up-preview
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  source:
+    path: kustomize/overlays/dc25/qacand
+    repoURL: 'https://github.tools.sap/sf-k8s/k8s-pvc-clean-up.git'
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: pvc-clean-up
+  syncPolicy:
+    automated:
+      prune: true
+  project: opstools
